@@ -203,7 +203,7 @@ public class ScalrResizeTest extends AbstractScalrTest {
     // resize to (w,h) using AUTO and FIT_BOTH modes, then compare auto (w,h) and fitBoth (w,h)
     private void testResizeAutoVsBoth (BufferedImage i, int targetWidth, int targetHeight, int autoWidth, int autoHeight, int fitBothWidth, int fitBothHeight) {
         BufferedImage auto = Scalr.resize(i, Mode.AUTOMATIC, targetWidth, targetHeight);
-        BufferedImage fitBoth = Scalr.resize(i, Mode.FIT_BOTH, targetWidth, targetHeight);
+        BufferedImage fitBoth = Scalr.resize(i, Mode.BEST_FIT_BOTH, targetWidth, targetHeight);
 
         Assert.assertEquals (autoWidth, auto.getWidth());
         Assert.assertEquals(autoHeight, auto.getHeight());

@@ -446,10 +446,10 @@ public class Scalr {
 		FIT_EXACT,
 		/**
 		 * Used to indicate that the scaling implementation should calculate
-		 * dimensions for the larges image that fit within the given box,
-		 * while retaining the original proportions.
+		 * dimensions for the largest image that fit within the bounding box,
+         * without cropping or distortion, retaining the original proportions.
 		 */
-		FIT_BOTH,
+		BEST_FIT_BOTH,
 		/**
 		 * Used to indicate that the scaling implementation should calculate
 		 * dimensions for the resultant image that best-fit within the given
@@ -1625,13 +1625,13 @@ public class Scalr {
 			if (DEBUG)
 				log(1,
 						"Resize Mode FIT_EXACT used, no width/height checking or re-calculation will be done.");
-		} else if (resizeMode == Mode.FIT_BOTH) {
-			float requestedWidthScaling = (float) targetWidth / src.getWidth();
-			float requestedHeightScaling = (float) targetHeight / src.getHeight();
-			float actualScaling = Math.min(requestedWidthScaling, requestedHeightScaling);
+		} else if (resizeMode == Mode.BEST_FIT_BOTH) {
+            float requestedHeightScaling = ((float) targetHeight / (float) currentHeight);
+			float requestedWidthScaling = ((float) targetWidth / (float) currentWidth);
+			float actualScaling = Math.min(requestedHeightScaling, requestedWidthScaling);
 
-			targetHeight = Math.round((float) src.getHeight() * actualScaling);
-			targetWidth = Math.round((float) src.getWidth() * actualScaling);
+			targetHeight = Math.round((float) currentHeight * actualScaling);
+			targetWidth = Math.round((float) currentWidth * actualScaling);
 
 			if (targetHeight == currentHeight && targetWidth == currentWidth)
 				return src;
